@@ -29,13 +29,13 @@ const runProgram = async () => {
       console.log("\nEnter a number (1-7)");
       console.log(
         `1. Find all gym members that have 'Gold' membership
-2. Find all trainees that trainer 'Vidas Vidaitis trains individually'
+2. Find all trainees that trainer 'Vidas Vidaitis trains individually
 3. Find all other participants that were training together with 'Neda Nedaite' in Cardio Blast that occurred at '2023-11-17 10:00'
-4. Find the shortest road between trainees homes that is connected to the gym group workout session 'Luna Lunaite' and 'Marsas Marsietis'
 4. Find the shortest road between trainees 'Luna Lunaite' and 'Marsas Marsietis' homes that is connected to the same gym group workout session
 5. Find the all the distances between trainees 'Luna Lunaite' and 'Marsas Marsietis' homes that is connected to the same gym group workout session
 6. Execute your own query
-7. Exit the app`
+7. Exit the app
+8. Find how many trainees attended each workout session`
       );
       const userInput = await askQuestion("Enter your choice: ");
       switch (userInput) {
@@ -61,6 +61,9 @@ const runProgram = async () => {
         case "7":
           console.log("Exiting...");
           exitLoop = true;
+          break;
+        case "8":
+          await functions.query8(session);
           break;
         default:
           console.log("Invalid input. Please enter a number between 1 and 7.");

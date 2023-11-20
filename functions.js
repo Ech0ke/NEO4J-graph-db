@@ -202,6 +202,24 @@ const query5 = async (session) => {
   );
 };
 
+const query8 = async (session) => {
+  const result = await session.run(`
+  MATCH (t:Trainee)-[:ATTENDS_SESSION]->(s:GroupWorkoutSession)
+  RETURN s.date AS sessionDate, s.time AS sessionTime, s.location AS sessionLocation, COUNT(t) AS attendeeCount;
+`);
+
+  const sessionAttendeesCount = result.records.map((record) => {
+    return {
+      sessionDate: record.get("sessionDate"),
+      sessionTime: record.get("sessionTime"),
+      sessionLocation: record.get("sessionLocation"),
+      attendeeCount: record.get("attendeeCount").toNumber(),
+    };
+  });
+
+  console.log(sessionAttendeesCount);
+};
+
 const executeUserQuery = async (session, userQuery) => {
   try {
     await session.run(userQuery);
@@ -220,5 +238,6 @@ module.exports = {
   query3,
   query4,
   query5,
+  query8,
   executeUserQuery,
 };
